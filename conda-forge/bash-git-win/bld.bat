@@ -4,8 +4,7 @@ if errorlevel 1 exit 1
 
 move "%LIBRARY_PREFIX%\bash-git\LICENSE.txt" .\ || exit 1
 cd "%LIBRARY_PREFIX%\bash-git" || exit 1
-call post-install.bat
-del post-install.bat || exit 1
+git-bash.exe --no-needs-console --hide --no-cd --command=post-install.bat || exit 1
 del README.portable || exit 1
 
 IF NOT EXIST "%PREFIX%\Menu" mkdir -p "%PREFIX%\Menu" || exit 1
