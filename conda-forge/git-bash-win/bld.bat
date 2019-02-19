@@ -10,4 +10,3 @@ copy "%RECIPE_DIR%\bash.bat" "%PREFIX%\bin\" || exit 1
 
 if not exist "%SCRIPTS%" mkdir "%SCRIPTS%" || exit 1
 copy "%RECIPE_DIR%\.git-bash-win-post-link.bat" "%SCRIPTS%\" || exit 1
-copy "%RECIPE_DIR%\.git-bash-win-pre-unlink.bat" "%SCRIPTS%\" || exit 1
