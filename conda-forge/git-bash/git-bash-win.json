@@ -4,10 +4,10 @@
     [
     {
         "name": "Bash (Git)",
-        "script": "${PREFIX}/Library/bash-git/bin/bash.exe",
+        "script": "${PREFIX}/Library/git-bash-win/bin/bash.exe",
         "scriptarguments": ["--login", "-i", "--"],
         "workdir": "${PERSONALDIR}",
-        "icon": "${MENU_DIR}/bash-git.ico"
+        "icon": "${MENU_DIR}/git-bash-win.ico"
     }
     ]
 }

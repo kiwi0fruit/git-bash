@@ -1,7 +1,8 @@
+{% set name = "git-bash-win" %}
 {% set version = "2.20.1" %}
 
 package:
-  name: git-bash
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -15,7 +16,7 @@ build:
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   no_link:
-    - Library/git-bash/*
+    - Library/{{ name }}/*
 
 requirements:
   build:
