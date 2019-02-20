@@ -2,8 +2,10 @@ set "_bash=%LIBRARY_PREFIX%\git-bash-win"
 mkdir "%_bash%" || exit 1
 7za x PortableGit-%PKG_VERSION%-%ARCH%-bit.7z.exe -o"%_bash%" -aoa || exit 1
 
-move "%_bash%\LICENSE.txt" .\ || exit 1
-del "%_bash%\README.portable" || exit 1
+copy "%_bash%\LICENSE.txt" .\ || exit 1
+:: Test Scripts\ disappearance:
+del "%_bash%\etc\post-install\99-post-install-cleanup.post" || exit 1
+patch -i "%RECIPE_DIR%\01-devices.post.patch" "%_bash%\etc\post-install\01-devices.post"
 
 if not exist "%PREFIX%\bin" mkdir "%PREFIX%\bin" || exit 1
 copy "%RECIPE_DIR%\bash.bat" "%PREFIX%\bin\" || exit 1

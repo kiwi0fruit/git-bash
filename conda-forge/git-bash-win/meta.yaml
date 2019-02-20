@@ -21,6 +21,7 @@ build:
 requirements:
   build:
     - 7za
+    - m2-patch
 
 test:
   commands:
