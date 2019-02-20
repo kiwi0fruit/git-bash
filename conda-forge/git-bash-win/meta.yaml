@@ -13,8 +13,6 @@ source:
 build:
   skip: True  # [not win64]
   number: 0
-  # git hardcodes paths to external utilities (e.g. curl)
-  detect_binary_files_with_prefix: true
   no_link:
     - Library/{{ name }}/*
 
