@@ -8,3 +8,4 @@ patch -i "%RECIPE_DIR%\post-install.bat.patch" "%_bash%\post-install.bat" || exi
 
 if not exist "%PREFIX%\bin" mkdir "%PREFIX%\bin" || exit 1
 copy "%RECIPE_DIR%\bash.bat" "%PREFIX%\bin\" || exit 1
+copy "%RECIPE_DIR%\git-bash.bat" "%PREFIX%\bin\" || exit 1

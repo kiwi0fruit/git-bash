@@ -1,0 +1,20 @@
+@echo off
+set "_bash_dir=%~dp0\..\Library\git-bash-win"
+if not exist "%_bash_dir%\post-install.bat" goto skip
+
+:: post install:
+set "_PATH=%PATH%"
+set "_CWD=%CD%"
+
+cd /d "%_bash_dir%" || exit /b 1
+set "PATH=%CD%\cmd;%PATH%"
+git-bash.exe --no-needs-console --hide --no-cd --command=post-install.bat || exit /b 1
+del "%_bash_dir%\post-install.bat" || exit /b 1
+
+set "PATH=%_PATH%"
+cd /d "%_CWD%"
+
+:skip
+"%_bash_dir%\git-bash.exe" %*
+:: the first successful run of git-bash.bat would overwrite it:
+echo @"%%~dp0\..\Library\git-bash-win\git-bash.exe" %%* > "%~dp0\git-bash.bat"
