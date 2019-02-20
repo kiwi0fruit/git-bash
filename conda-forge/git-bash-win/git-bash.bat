@@ -8,7 +8,7 @@ set "_CWD=%CD%"
 
 cd /d "%_bash_dir%" || exit /b 1
 set "PATH=%CD%\cmd;%PATH%"
-git-bash.exe --no-needs-console --hide --no-cd --command=post-install.bat || exit /b 1
+git-bash.exe --no-needs-console --hide --no-cd --command=post-install.bat > nul || exit /b 1
 del "%_bash_dir%\post-install.bat" || exit /b 1
 
 set "PATH=%_PATH%"
