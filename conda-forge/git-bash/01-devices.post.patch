@@ -1,26 +1,16 @@
 --- a/01-devices.post
 +++ b/01-devices.post
-@@ -17,7 +17,9 @@ maybe_create_devs ()
+@@ -17,7 +17,8 @@ maybe_create_devs ()
    fi
  
    # Create it if necessary
 -  mkdir -m 755 "${DEVDIR}" 2> /dev/null
-+  if [ ! -e "${DEVDIR}" ]; then
-+    mkdir "${DEVDIR}"
-+  fi
++  mkdir -p "${DEVDIR}" 2>/dev/null || true
++  chmod 755 "${DEVDIR}"
    if [ ! -e "${DEVDIR}" ]
    then
      echo
-@@ -25,6 +27,8 @@ maybe_create_devs ()
-     echo "Please fix that manually, otherwise you WILL get problems."
-     echo
-     exit 1
-+  else
-+    chmod 755 "${DEVDIR}"
-   fi
- 
-   # Check for ${DEVDIR}/shm directory (for POSIX semaphores and POSIX shared mem)
-@@ -38,22 +42,25 @@ maybe_create_devs ()
+@@ -38,22 +39,20 @@ maybe_create_devs ()
        echo "${DEVDIR}/shm is existant but not a directory."
        echo "POSIX semaphores and POSIX shared memory will not work"
        echo
@@ -29,26 +19,29 @@
    fi
  
    # Create it if necessary
++  mkdir -p "${DEVDIR}/shm" 2>/dev/null || true
++  chmod 1777 "${DEVDIR}/shm"
    if [ ! -e "${DEVDIR}/shm" ]
    then
 -    mkdir -m 1777 "${DEVDIR}/shm"
-+    mkdir "${DEVDIR}/shm"
-+    chmod 1777 "${DEVDIR}/shm" 2> /dev/null || true
-     if [ ! -e "${DEVDIR}/shm" ]
-     then
-       echo
-       echo "Creating ${DEVDIR}/shm directory failed."
-       echo "POSIX semaphores and POSIX shared memory will not work"
-       echo
-+      exit 1
-     fi
-   else
+-    if [ ! -e "${DEVDIR}/shm" ]
+-    then
+-      echo
+-      echo "Creating ${DEVDIR}/shm directory failed."
+-      echo "POSIX semaphores and POSIX shared memory will not work"
+-      echo
+-    fi
+-  else
 -    chmod 1777 "${DEVDIR}/shm"
-+    chmod 1777 "${DEVDIR}/shm" 2> /dev/null || true
++    echo
++    echo "Creating ${DEVDIR}/shm directory failed."
++    echo "POSIX semaphores and POSIX shared memory will not work"
++    echo
++    exit 1
    fi
  
    # Check for ${DEVDIR}/mqueue directory (for POSIX message queues)
-@@ -67,22 +74,25 @@ maybe_create_devs ()
+@@ -67,24 +66,22 @@ maybe_create_devs ()
        echo "${DEVDIR}/mqueue is existant but not a directory."
        echo "POSIX message queues will not work"
        echo
@@ -57,22 +50,28 @@
    fi
  
    # Create it if necessary
++  mkdir -p "${DEVDIR}/mqueue" 2>/dev/null || true
++  chmod 1777 "${DEVDIR}/mqueue"
    if [ ! -e "${DEVDIR}/mqueue" ]
    then
 -    mkdir -m 1777 "${DEVDIR}/mqueue"
-+    mkdir "${DEVDIR}/mqueue"
-+    chmod 1777 "${DEVDIR}/mqueue" 2> /dev/null || true
-     if [ ! -e "${DEVDIR}/mqueue" ]
-     then
-       echo
-       echo "Creating ${DEVDIR}/mqueue directory failed."
-       echo "POSIX message queues will not work"
-       echo
-+      exit 1
-     fi
-   else
+-    if [ ! -e "${DEVDIR}/mqueue" ]
+-    then
+-      echo
+-      echo "Creating ${DEVDIR}/mqueue directory failed."
+-      echo "POSIX message queues will not work"
+-      echo
+-    fi
+-  else
 -    chmod 1777 "${DEVDIR}/mqueue"
-+    chmod 1777 "${DEVDIR}/mqueue" 2> /dev/null || true
++    echo
++    echo "Creating ${DEVDIR}/mqueue directory failed."
++    echo "POSIX message queues will not work"
++    echo
++    exit 1
    fi
-   
+-  
++
    # Install /dev/fd, /dev/std{in,out,err}.  The bash builtin test was compiled
+   # to assume these exist, so use /bin/test to really check.
+   /usr/bin/test -h /dev/stdin  || ln -sf /proc/self/fd/0 /dev/stdin
