@@ -8,6 +8,9 @@ if not exist "%_bash_dir%\post-install.bat" goto skip
 :: post install:
 set "_CWD=%CD%"
 cd /d "%_bash_dir%" || exit /b 1
+set "_PATH=%PATH%"
+set "PATH=%CD%\cmd;%PATH%"
+if not exist .\dev mkdir .\dev
 .\git-bash.exe --no-needs-console --hide --no-cd ^
 --command=post-install.bat > __stdout__ 2> __stderr__
 if not %errorlevel%==0 (
@@ -26,7 +29,8 @@ if not "%_err%" == "%%_err%%" (
 if exist __stdout__ del __stdout__ || exit /b 1
 if exist __stderr__ del __stderr__ || exit /b 1
 cd /d "%_CWD%"
-set "_err=" && set "_CWD="
+set "PATH=%_PATH%"
+set "_err=" && set "_CWD=" && set "_PATH="
 del "%_bash_dir%\post-install.bat" || exit /b 1
 
 :skip
