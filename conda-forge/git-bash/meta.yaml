@@ -30,7 +30,7 @@ test:
     - |
       cmd /c %PREFIX%\bin\git-bash-post-install.bat && echo OK
     - |
-      cmd /c %PREFIX%\bin\bash.bat -c "echo hello | cp /dev/stdin /dev/stdout"
+      cmd /c %PREFIX%\bin\bash.bat -c "if [[ $(echo hello | cp /dev/stdin /dev/stdout) != 'hello' ]]; then exit 1; fi"
 
 about:
   home: https://git-scm.com/

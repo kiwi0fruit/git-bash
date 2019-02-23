@@ -13,8 +13,8 @@ del post-install.bat ^
     || set "_err=1" && cd "%CD%"
 rmdir /s /q etc\post-install ^
     || set "_err=1" && cd "%CD%"
-.\bin\bash.exe -c "echo hello | cp /dev/stdin /dev/stdout" ^
-    || set "_err=1" && cd "%CD%"
+.\bin\bash.exe -c "if [[ $(echo hello | cp /dev/stdin /dev/stdout) != 'hello' ]]; then echo 'bad /dev/stdin' 1>&2; exit 1; fi" ^
+    > nul || set "_err=1" && cd "%CD%"
 if defined _err (
     echo git bash post install failed 1>&2
     type _err 1>&2
