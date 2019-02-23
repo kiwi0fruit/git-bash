@@ -9,6 +9,7 @@ patch -i "%RECIPE_DIR%\post-install.bat.patch" "%_bash_dir%\post-install.bat" ||
 del "%_post%\99-post-install-cleanup.post" || exit 1
 mkdir "%_bash_dir%\dev" || exit 1
 bash -c "ln -sf /proc/self/fd/0 $(cygpath %_bash_dir:\=/%/dev/stdin)" || exit 1
+if not exist "%_bash_dir%\dev\stdin" exit 1
 
 if not exist "%PREFIX%\bin" mkdir "%PREFIX%\bin" || exit 1
 copy "%RECIPE_DIR%\bash.bat" "%PREFIX%\bin\" || exit 1
