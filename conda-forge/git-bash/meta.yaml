@@ -20,6 +20,7 @@ requirements:
   build:
     - 7za
     - m2-patch
+    - git
 
 test:
   commands:

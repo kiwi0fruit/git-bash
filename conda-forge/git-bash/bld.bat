@@ -8,7 +8,8 @@ patch -i "%RECIPE_DIR%\01-devices.post.patch" "%_post%\01-devices.post" || exit 
 patch -i "%RECIPE_DIR%\post-install.bat.patch" "%_bash_dir%\post-install.bat" || exit 1
 del "%_post%\99-post-install-cleanup.post" || exit 1
 mkdir "%_bash_dir%\dev" || exit 1
-robocopy "%RECIPE_DIR%\stdin" "%_bash_dir%\dev" > nul || exit 1
+bash -c "ln -sf /proc/self/fd/0 $(cygpath %_bash_dir%\dev\stdin)"
+::robocopy "%RECIPE_DIR%\stdin" "%_bash_dir%\dev" > nul || exit 1
 
 if not exist "%PREFIX%\bin" mkdir "%PREFIX%\bin" || exit 1
 copy "%RECIPE_DIR%\bash.bat" "%PREFIX%\bin\" || exit 1
