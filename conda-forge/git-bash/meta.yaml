@@ -23,8 +23,10 @@ requirements:
 
 test:
   commands:
-    - call bash.bat --version
-    - call git-bash-post-install.bat
+    - |
+      cmd /c "%PREFIX%\bin\bash.bat" --version
+    - |
+      cmd /c "%PREFIX%\bin\git-bash-post-install.bat" && echo OK
 
 about:
   home: https://git-scm.com/
