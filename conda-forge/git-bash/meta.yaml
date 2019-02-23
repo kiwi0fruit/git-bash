@@ -25,11 +25,11 @@ requirements:
 test:
   commands:
     - |
-      cmd /c "%PREFIX%\bin\bash.bat" --version
+      cmd /c %PREFIX%\bin\bash.bat --version
     - |
-      cmd /c "%PREFIX%\bin\git-bash-post-install.bat" && echo OK
+      cmd /c %PREFIX%\bin\git-bash-post-install.bat && echo OK
     - |
-      cmd /c "%PREFIX%\bin\bash.bat" -c "echo hello | cp /dev/stdin /dev/stdout"
+      cmd /c %PREFIX%\bin\bash.bat -c "echo hello | cp /dev/stdin /dev/stdout"
 
 about:
   home: https://git-scm.com/
