@@ -8,7 +8,7 @@ patch -i "%RECIPE_DIR%\01-devices.post.patch" "%_post%\01-devices.post" || exit 
 patch -i "%RECIPE_DIR%\post-install.bat.patch" "%_bash_dir%\post-install.bat" || exit 1
 del "%_post%\99-post-install-cleanup.post" || exit 1
 mkdir "%_bash_dir%\dev" || exit 1
-cygpath "%_bash_dir%\dev\stdin" | call "%RECIPE_DIR%\setvar.bat" _stdin
+cygpath "%_bash_dir%\dev\stdin" > __ && set /p _stdin=<__
 bash -c "ln -sf /proc/self/fd/0 \"%_stdin%\"" || exit 1
 if not exist "%_bash_dir%\dev\stdin" exit 1
 
