@@ -12,7 +12,6 @@ source:
 build:
   skip: True  # [not win64]
   number: 0
-  detect_binary_files_with_prefix: true
   no_link:
     - Library/{{ name }}/*
     - bin/*
@@ -28,7 +27,7 @@ test:
     - |
       cmd /c %PREFIX%\bin\bash.bat --version
     - |
-      cmd /c %PREFIX%\bin\git-bash-post-install.bat && echo OK
+      cmd /c %PREFIX%\bin\git-bash-post-install.bat
     - |
       cmd /c %PREFIX%\bin\bash.bat -c "if [[ $(echo hello | cp /dev/stdin /dev/stdout) != 'hello' ]]; then exit 1; fi"
 
