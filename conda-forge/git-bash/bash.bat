@@ -21,9 +21,8 @@ mkdir etc\post-install ^
     || set "_err=1" && cd "%CD%"
 move 01-devices.post etc\post-install\01-devices.post ^
     || set "_err=1" && cd "%CD%"
-start "bash" .\git-bash.exe --hide
-timeout 5 > nul
-taskkill /f /im bash.exe > nul || cd "%CD%"
+call .\post-install.bat > nul ^
+    || set "_err=1" && cd "%CD%"
 
 :: First clean up after post install:
 del post-install.bat ^
