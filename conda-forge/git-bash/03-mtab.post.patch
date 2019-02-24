@@ -1,0 +1,11 @@
+--- a/03-mtab.post
++++ b/03-mtab.post
+@@ -2,7 +2,7 @@ maybe_create_mtab ()
+ {
+   local MTAB="${SYSCONFDIR}/mtab"
+   # Create /etc/mtab as symlink to /proc/mounts
+-  [ ! -L "${MTAB}" ] && ln -sf /proc/mounts ${MTAB}
++  /usr/bin/test -h "${MTAB}" && [ -L "${MTAB}" ] || ln -sf /proc/mounts "${MTAB}"
+ }
+ 
+ maybe_create_mtab
