@@ -5,7 +5,6 @@ mkdir "%_bash_dir%" || exit 1
 copy "%_bash_dir%\LICENSE.txt" .\ || exit 1
 set "_post=%_bash_dir%\etc\post-install"
 patch -i "%RECIPE_DIR%\01-devices.post.patch" "%_post%\01-devices.post" || exit 1
-patch -i "%RECIPE_DIR%\03-mtab.post.patch" "%_post%\03-mtab.post" || exit 1
 patch -i "%RECIPE_DIR%\post-install.bat.patch" "%_bash_dir%\post-install.bat" || exit 1
 del "%_post%\99-post-install-cleanup.post" || exit 1
 copy "%_post%\01-devices.post" "%_bash_dir%\01-devices.post" || exit 1
@@ -13,4 +12,7 @@ copy "%_post%\01-devices.post" "%_bash_dir%\01-devices.post" || exit 1
 if not exist "%PREFIX%\bin" mkdir "%PREFIX%\bin" || exit 1
 copy "%RECIPE_DIR%\bash.bat" "%PREFIX%\bin\" || exit 1
 copy "%RECIPE_DIR%\git-bash.bat" "%PREFIX%\bin\" || exit 1
-copy "%RECIPE_DIR%\git-bash-post-install.bat" "%PREFIX%\bin\" || exit 1
+
+if not exist "%SCRIPTS%" mkdir "%SCRIPTS%" || exit 1
+copy "%RECIPE_DIR%\.git-bash-pre-unlink.bat" "%SCRIPTS%\" || exit 1
+copy "%RECIPE_DIR%\.git-bash-post-link.bat" "%SCRIPTS%\" || exit 1
