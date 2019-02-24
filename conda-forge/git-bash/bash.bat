@@ -19,7 +19,7 @@ rmdir /s /q etc\post-install ^
     || set "_err=1" && cd "%CD%"
 mkdir etc\post-install ^
     || set "_err=1" && cd "%CD%"
-move 01-devices.post etc\post-install\01-devices.post ^
+move 01-devices.post etc\post-install\01-devices.post > nul ^
     || set "_err=1" && cd "%CD%"
 call .\post-install.bat > nul ^
     || set "_err=1" && cd "%CD%"
