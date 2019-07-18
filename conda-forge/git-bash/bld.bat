@@ -1,6 +1,6 @@
 set "_bash_dir=%LIBRARY_PREFIX%\git-bash"
 mkdir "%_bash_dir%" || exit 1
-7za x PortableGit-%PKG_VERSION%-%ARCH%-bit.7z.exe -o"%_bash_dir%" -aoa || exit 1
+.\Library\bin\7za.exe x PortableGit-%PKG_VERSION%-64-bit.7z.exe -o"%_bash_dir%" -aoa || exit 1
 
 copy "%_bash_dir%\LICENSE.txt" .\ || exit 1
 set "_post=%_bash_dir%\etc\post-install"
