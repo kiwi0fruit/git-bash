@@ -1,39 +1,31 @@
 {% set name = "git-bash" %}
-{% set version = "2.22.0" %}
+{% set version = "2.24.0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
-source:
-  - url: https://anaconda.org/anaconda/7za/920/download/win-64/7za-920-0.tar.bz2
-    sha256: 356190e3e3569cb55114ee19da2a9bb793f26329df22ba79441749f89e9ca60a
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe
-    sha256: 2d935dc309568a9694711ac080967388c98b69907fb015f6536a4a0920084e0c
-
 build:
   skip: True  # [not win64]
   number: 0
-  no_link:
-    - Library/{{ name }}/*
-    - bin/*
 
 requirements:
-  build:
-    - m2-patch
+  run:
+    - conda-forge::git ={{ version }}
 
 test:
   commands:
+    - bash --version
+    - git --version
     - |
-      cmd /c %PREFIX%\bin\bash.bat --version
-    - |
-      cmd /c %PREFIX%\bin\bash.bat -c "if [[ $(echo hello | cp /dev/stdin /dev/stdout) != 'hello' ]]; then exit 1; fi"
+      bash -c "if [[ $(echo hello | cp /dev/stdin /dev/stdout) != 'hello' ]]; then exit 1; fi"
 
 about:
-  home: https://git-scm.com/
-  license: "git: GPLv2, LGPLv2.1, bash: GPLv3+"
-  license_file: LICENSE.txt
-  summary: "Repackage of the Git Bash for Windows."
+  home: https://anaconda.org/conda-forge/git
+  license: GPL-2 AND LGPL-2.1 AND GPL-3
+  license_family: OTHER
+  license_file: LICENSE
+  summary: "A dummy package that depends on conda-forge::git"
 
 extra:
   recipe-maintainers:
